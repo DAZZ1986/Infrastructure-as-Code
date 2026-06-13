@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jenkins
+  namespace: jenkins-second
+spec:
+  serviceName: jenkins-headless   # 👈 ссылка на Headless Service — ОБЯЗАТЕЛЬНА!
+  replicas: 1
+  selector:
+  matchLabels:
+    app: jenkins
+  template:
+  metadata:
+    labels:
+    app: jenkins
+  spec:
+    containers:
+    - name: jenkins
+      image: jenkins/jenkins:2.541.1-jdk21
+      imagePullPolicy: IfNotPresent   # не качаем, если уже есть
+      ports:
+      - containerPort: 8080
+        name: web
+      - containerPort: 50000
+        name: agent
+      env:
+      # ОБЯЗАТЕЛЬНО: HTTP вместо HTTPS (чтобы не было проблем с сетью)
+      - name: JENKINS_UC
+        value: "http://updates.jenkins.io/update-center.json"
+      # Не скачиваем плагины автоматически (ускоряет запуск)
+      - name: JAVA_OPTS
+        value: "-Djenkins.install.runSetupWizard=false"
+      volumeMounts:
+      - name: jenkins-home
+        mountPath: /var/jenkins_home
+  # Встроенный способ создания PVC для каждого пода
+  volumeClaimTemplates:
+  - metadata:
+    name: jenkins-home
+    spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+      storage: 10Gi
