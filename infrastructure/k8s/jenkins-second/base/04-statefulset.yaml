@@ -28,8 +28,8 @@ spec:
             - name: JENKINS_UC
               value: "http://updates.jenkins.io/update-center.json"
             # Не скачиваем плагины автоматически (ускоряет запуск)
-            - name: JAVA_OPTS
-              value: "-Djenkins.install.runSetupWizard=false"
+            #- name: JAVA_OPTS
+            #  value: "-Djenkins.install.runSetupWizard=false"
           volumeMounts:           # ← был неправильный отступ!
             - name: jenkins-home
               mountPath: /var/jenkins_home
