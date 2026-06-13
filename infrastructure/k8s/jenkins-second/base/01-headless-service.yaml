@@ -4,13 +4,13 @@ metadata:
   name: jenkins-headless
   namespace: jenkins-second
 spec:
-  clusterIP: None   # 👈 ключевая строка — делает сервис "безголовым"
+  clusterIP: None
   selector:
-  app: jenkins
+    app: jenkins          # ← было: "  app: jenkins" без отступа, нужно: "    app: jenkins"
   ports:
-  - name: web
-    port: 8080
-    targetPort: 8080
-  - name: agent
-    port: 50000
-    targetPort: 50000
+    - name: web
+      port: 8080
+      targetPort: 8080
+    - name: agent
+      port: 50000
+      targetPort: 50000

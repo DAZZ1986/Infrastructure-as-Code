@@ -6,9 +6,9 @@ metadata:
 spec:
   type: NodePort
   selector:
-  app: jenkins
+    app: jenkins          # ← то же самое: нужен отступ (2 пробела) перед app
   ports:
-  - name: web
-    port: 8080
-    targetPort: 8080
-    nodePort: 32001   # порт, по которому будет доступен Jenkins
+    - name: web
+      port: 8080
+      targetPort: 8080
+      nodePort: 32001
