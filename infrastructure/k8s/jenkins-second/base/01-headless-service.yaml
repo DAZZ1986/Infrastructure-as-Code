@@ -6,7 +6,7 @@ metadata:
 spec:
   clusterIP: None
   selector:
-    app: jenkins          # ← было: "  app: jenkins" без отступа, нужно: "    app: jenkins"
+    app: jenkins          # ← было: "app: jenkins", нужно: "app: jenkins"
   ports:
     - name: web
       port: 8080

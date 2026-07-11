@@ -7,11 +7,11 @@ spec:
   serviceName: jenkins-headless   # 👈 ссылка на Headless Service — ОБЯЗАТЕЛЬНА!
   replicas: 1
   selector:
-    matchLabels:                  # ← был пропущен отступ!
+    matchLabels:
       app: jenkins
   template:
     metadata:
-      labels:                     # ← был пропущен отступ!
+      labels:
         app: jenkins
     spec:
       containers:
@@ -30,14 +30,14 @@ spec:
             # Не скачиваем плагины автоматически (ускоряет запуск)
             #- name: JAVA_OPTS
             #  value: "-Djenkins.install.runSetupWizard=false"
-          volumeMounts:           # ← был неправильный отступ!
+          volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
   # Встроенный способ создания PVC для каждого пода
   volumeClaimTemplates:
-    - metadata:                   # ← был пропущен отступ!
-        name: jenkins-home        # ← был пропущен отступ!
-      spec:                       # ← был пропущен отступ!
+    - metadata:
+        name: jenkins-home
+      spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
